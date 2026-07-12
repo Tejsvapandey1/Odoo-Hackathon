@@ -57,7 +57,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="dashboard-shell">
+    <main className="dashboard-page">
       <header className="topbar">
         <div>
           <p className="eyebrow">Operations Snapshot</p>
