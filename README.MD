@@ -10,6 +10,7 @@ This repo currently contains the backend API. The frontend is still planned, but
 - Database: MongoDB with Mongoose
 - Auth: JWT + role-based access control
 - Frontend: not added yet
+- Docker: added for backend + MongoDB local setup
 
 ## Backend Features
 
@@ -45,6 +46,7 @@ This repo currently contains the backend API. The frontend is still planned, but
 - Mongoose
 - JSON Web Tokens
 - bcryptjs
+- Docker Compose
 
 ## Project Structure
 
@@ -179,6 +181,32 @@ odoo-hack/
 
 ## Setup
 
+### Quick start with Docker
+
+This is the easiest way to run the app locally right now.
+
+```bash
+docker compose up --build
+```
+
+This starts:
+
+- the API on `http://localhost:4000`
+- MongoDB on `localhost:27017`
+- a single-node Mongo replica set so transaction-based flows work correctly
+
+To stop everything:
+
+```bash
+docker compose down
+```
+
+To stop and also remove the Mongo data volume:
+
+```bash
+docker compose down -v
+```
+
 ### 1. Install dependencies
 
 ```bash
@@ -204,6 +232,8 @@ SEED_ON_START=true
 ### 3. Start MongoDB
 
 Run a local MongoDB instance or provide a MongoDB Atlas connection string in `MONGO_URI`.
+
+Important: the backend uses MongoDB transactions in trip and maintenance flows, so local MongoDB must run as a replica set. The included Docker Compose setup already handles this for you.
 
 ### 4. Start the backend
 
@@ -240,6 +270,7 @@ npm run seed
 - Input validation is handled at the route boundary, with schema validation in Mongoose
 - CSV export is implemented without an extra CSV package
 - There is no automated test suite yet
+- Docker Compose includes MongoDB replica-set initialization because transactions require it
 
 ## Next Planned Work
 

@@ -1,0 +1,54 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: transitops-mongo
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "echo \"try { rs.status().ok } catch (e) { 0 }\" | mongosh --quiet | grep 1"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+
+  mongo-init:
+    image: mongo:7
+    depends_on:
+      mongo:
+        condition: service_started
+    restart: "no"
+    command:
+      [
+        "bash",
+        "-lc",
+        "until mongosh --host mongo:27017 --quiet --eval \"db.adminCommand({ ping: 1 }).ok\"; do sleep 2; done; mongosh --host mongo:27017 --quiet --eval \"try { rs.status() } catch (e) { rs.initiate({_id: 'rs0', members: [{ _id: 0, host: 'mongo:27017' }]}) }\""
+      ]
+
+  api:
+    build:
+      context: ./server
+    container_name: transitops-api
+    depends_on:
+      mongo:
+        condition: service_healthy
+      mongo-init:
+        condition: service_completed_successfully
+    environment:
+      PORT: 4000
+      MONGO_URI: mongodb://mongo:27017/transitops?replicaSet=rs0
+      JWT_SECRET: change-me-to-a-long-random-string
+      JWT_EXPIRES_IN: 8h
+      CLIENT_URL: http://localhost:5173
+      SEED_ON_START: "true"
+    ports:
+      - "4000:4000"
+
+volumes:
+  mongo_data:
