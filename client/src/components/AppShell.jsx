@@ -4,6 +4,7 @@ import { clearSession, getStoredUser } from '../api.js';
 const navItems = [
   { to: '/', label: 'Dashboard' },
   { to: '/vehicles', label: 'Vehicles' },
+  { to: '/drivers', label: 'Drivers' },
 ];
 
 export default function AppShell() {

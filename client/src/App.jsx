@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import AppShell from './components/AppShell.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
+import DriversPage from './pages/DriversPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import VehiclesPage from './pages/VehiclesPage.jsx';
@@ -19,6 +20,7 @@ export default function App() {
       >
         <Route index element={<DashboardPage />} />
         <Route path="vehicles" element={<VehiclesPage />} />
+        <Route path="drivers" element={<DriversPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

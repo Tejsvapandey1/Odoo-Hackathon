@@ -233,7 +233,8 @@ button {
 }
 
 .dashboard-page,
-.vehicles-page {
+.vehicles-page,
+.drivers-page {
   padding: 2rem;
 }
 
@@ -425,6 +426,10 @@ button {
   gap: 1rem;
 }
 
+.filter-panel--drivers {
+  grid-template-columns: 1.8fr minmax(0, 220px);
+}
+
 .filter-field {
   display: grid;
   gap: 0.45rem;
@@ -535,6 +540,37 @@ button {
 
 .table-action--muted {
   color: #6d7f7b;
+}
+
+.table-select {
+  width: 100%;
+  min-width: 130px;
+  border: 1px solid rgba(19, 35, 33, 0.16);
+  border-radius: 0.8rem;
+  padding: 0.55rem 0.7rem;
+  background: white;
+}
+
+.expiry-cell {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.expiry-note {
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.expiry-note--valid {
+  color: #0b7568;
+}
+
+.expiry-note--warning {
+  color: #8a5a12;
+}
+
+.expiry-note--expired {
+  color: #a13524;
 }
 
 @media (max-width: 900px) {

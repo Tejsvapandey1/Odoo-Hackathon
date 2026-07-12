@@ -87,3 +87,23 @@ export function retireVehicle(id) {
     method: 'DELETE',
   });
 }
+
+export function getDrivers(params = {}) {
+  const search = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') {
+      search.set(key, value);
+    }
+  });
+
+  const query = search.toString();
+  return request(`/api/drivers${query ? `?${query}` : ''}`);
+}
+
+export function updateDriver(id, payload) {
+  return request(`/api/drivers/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+  });
+}
