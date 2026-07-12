@@ -50,5 +50,17 @@ services:
     ports:
       - "4000:4000"
 
+  client:
+    build:
+      context: ./client
+    container_name: transitops-client
+    depends_on:
+      api:
+        condition: service_started
+    environment:
+      VITE_API_URL: http://localhost:4000
+    ports:
+      - "5173:5173"
+
 volumes:
   mongo_data:

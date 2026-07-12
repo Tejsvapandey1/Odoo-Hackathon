@@ -10,7 +10,7 @@ This repo now contains both the backend API and a first-pass React frontend scaf
 - Database: MongoDB with Mongoose
 - Auth: JWT + role-based access control
 - Frontend: React + Vite scaffold added
-- Docker: added for backend + MongoDB local setup
+- Docker: added for frontend, backend, and MongoDB local setup
 
 ## Backend Features
 
@@ -209,11 +209,10 @@ docker compose up --build
 
 This starts:
 
+- the frontend on `http://localhost:5173`
 - the API on `http://localhost:4000`
 - MongoDB on `localhost:27017`
 - a single-node Mongo replica set so transaction-based flows work correctly
-
-The current frontend still runs separately with Vite.
 
 To stop everything:
 
