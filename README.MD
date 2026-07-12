@@ -2,20 +2,21 @@
 
 TransitOps is a fleet operations platform for small and mid-size transport teams. It covers vehicle registry, driver management, trip dispatch, maintenance, fuel logs, expense tracking, and reporting.
 
-This repo currently contains the backend API. The frontend is still planned, but the backend is already structured around that full product flow.
+This repo now contains both the backend API and a first-pass React frontend scaffold. The current frontend includes authentication, protected routing, and a dashboard shell wired to the live backend.
 
 ## Status
 
 - Backend: implemented
 - Database: MongoDB with Mongoose
 - Auth: JWT + role-based access control
-- Frontend: not added yet
+- Frontend: React + Vite scaffold added
 - Docker: added for backend + MongoDB local setup
 
 ## Backend Features
 
 - User authentication with hashed passwords
 - Four roles: `Fleet Manager`, `Driver`, `Safety Officer`, `Financial Analyst`
+- React frontend with login flow and protected dashboard
 - Vehicle CRUD with soft-retire flow
 - Driver CRUD with license-expiry tracking
 - Trip lifecycle: `Draft -> Dispatched -> Completed/Cancelled`
@@ -53,6 +54,23 @@ This repo currently contains the backend API. The frontend is still planned, but
 ```text
 odoo-hack/
 ├── README.MD
+├── client/
+│   ├── package.json
+│   ├── .env.example
+│   ├── index.html
+│   ├── vite.config.js
+│   └── src/
+│       ├── App.jsx
+│       ├── api.js
+│       ├── main.jsx
+│       ├── styles.css
+│       ├── components/
+│       │   ├── KpiCard.jsx
+│       │   └── ProtectedRoute.jsx
+│       └── pages/
+│           ├── DashboardPage.jsx
+│           └── LoginPage.jsx
+├── docker-compose.yml
 └── server/
     ├── package.json
     ├── package-lock.json
@@ -195,6 +213,8 @@ This starts:
 - MongoDB on `localhost:27017`
 - a single-node Mongo replica set so transaction-based flows work correctly
 
+The current frontend still runs separately with Vite.
+
 To stop everything:
 
 ```bash
@@ -210,13 +230,24 @@ docker compose down -v
 ### 1. Install dependencies
 
 ```bash
+cd client
+npm install
+
 cd server
 npm install
 ```
 
-### 2. Create environment file
+### 2. Create environment files
 
-Copy `.env.example` to `.env` inside `server/`.
+Copy `client/.env.example` to `client/.env`.
+
+Example:
+
+```env
+VITE_API_URL=http://localhost:4000
+```
+
+Copy `server/.env.example` to `server/.env`.
 
 Example:
 
@@ -243,6 +274,15 @@ npm run dev
 ```
 
 The API starts on `http://localhost:4000` by default.
+
+### 5. Start the frontend
+
+```bash
+cd client
+npm run dev
+```
+
+The frontend starts on `http://localhost:5173` by default.
 
 ## Seed Data
 
@@ -272,11 +312,19 @@ npm run seed
 - There is no automated test suite yet
 - Docker Compose includes MongoDB replica-set initialization because transactions require it
 
+## Current Frontend Notes
+
+- Login is wired to the real `/api/auth/login` endpoint
+- The dashboard fetches `/api/health`, `/api/auth/me`, and `/api/reports/dashboard`
+- Sessions are stored in local storage for now
+- Only the first authenticated shell is implemented so far
+
 ## Next Planned Work
 
 - Build the React frontend
 - Add protected UI flows for each role
 - Add dashboards and charts on top of existing report endpoints
+- Add feature pages for vehicles, drivers, trips, maintenance, fuel, and reports
 - Add tests for trip lifecycle and maintenance state transitions
 - Add deployment config
 
