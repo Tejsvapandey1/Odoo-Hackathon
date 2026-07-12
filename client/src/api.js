@@ -107,3 +107,50 @@ export function updateDriver(id, payload) {
     body: JSON.stringify(payload),
   });
 }
+
+export function getTrips(params = {}) {
+  const search = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') {
+      search.set(key, value);
+    }
+  });
+
+  const query = search.toString();
+  return request(`/api/trips${query ? `?${query}` : ''}`);
+}
+
+export function createTrip(payload) {
+  return request('/api/trips', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
+export function dispatchTrip(id) {
+  return request(`/api/trips/${id}/dispatch`, {
+    method: 'POST',
+  });
+}
+
+export function completeTrip(id, payload) {
+  return request(`/api/trips/${id}/complete`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
+export function cancelTrip(id) {
+  return request(`/api/trips/${id}/cancel`, {
+    method: 'POST',
+  });
+}
+
+export function getAvailableVehicles() {
+  return request('/api/vehicles/available');
+}
+
+export function getAvailableDrivers() {
+  return request('/api/drivers/available');
+}

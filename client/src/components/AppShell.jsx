@@ -5,6 +5,7 @@ const navItems = [
   { to: '/', label: 'Dashboard' },
   { to: '/vehicles', label: 'Vehicles' },
   { to: '/drivers', label: 'Drivers' },
+  { to: '/trips', label: 'Trips' },
 ];
 
 export default function AppShell() {

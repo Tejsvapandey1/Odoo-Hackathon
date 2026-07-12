@@ -234,7 +234,8 @@ button {
 
 .dashboard-page,
 .vehicles-page,
-.drivers-page {
+.drivers-page,
+.trips-page {
   padding: 2rem;
 }
 
@@ -430,6 +431,10 @@ button {
   grid-template-columns: 1.8fr minmax(0, 220px);
 }
 
+.filter-panel--trips {
+  grid-template-columns: minmax(0, 220px);
+}
+
 .filter-field {
   display: grid;
   gap: 0.45rem;
@@ -542,6 +547,10 @@ button {
   color: #6d7f7b;
 }
 
+.table-action--positive {
+  color: #0b7568;
+}
+
 .table-select {
   width: 100%;
   min-width: 130px;
@@ -571,6 +580,61 @@ button {
 
 .expiry-note--expired {
   color: #a13524;
+}
+
+.compose-panel {
+  width: min(1200px, 100%);
+  margin: 1.5rem auto 0;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(19, 35, 33, 0.1);
+  box-shadow: 0 24px 60px rgba(19, 35, 33, 0.08);
+  background: rgba(255, 253, 249, 0.88);
+  overflow: hidden;
+}
+
+.trip-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1.2rem;
+}
+
+.trip-form__submit {
+  width: auto;
+  align-self: end;
+}
+
+.trip-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.complete-card {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.complete-card__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.complete-card__grid input {
+  width: 100%;
+  border: 1px solid rgba(19, 35, 33, 0.16);
+  border-radius: 0.8rem;
+  padding: 0.55rem 0.7rem;
+  background: white;
+}
+
+.trip-summary {
+  display: grid;
+  gap: 0.2rem;
+  color: #476460;
+  font-size: 0.92rem;
 }
 
 @media (max-width: 900px) {
@@ -613,6 +677,11 @@ button {
   }
 
   .filter-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .trip-form,
+  .complete-card__grid {
     grid-template-columns: 1fr;
   }
 }

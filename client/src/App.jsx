@@ -4,6 +4,7 @@ import DashboardPage from './pages/DashboardPage.jsx';
 import DriversPage from './pages/DriversPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import TripsPage from './pages/TripsPage.jsx';
 import VehiclesPage from './pages/VehiclesPage.jsx';
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
         <Route index element={<DashboardPage />} />
         <Route path="vehicles" element={<VehiclesPage />} />
         <Route path="drivers" element={<DriversPage />} />
+        <Route path="trips" element={<TripsPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
